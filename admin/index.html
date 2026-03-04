@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R.D Admin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── LOGIN PAGE ── -->
+  <div class="login-page" id="login-page">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="logo-dot"></div>
+        R.D Admin
+      </div>
+      <div class="login-sub">Sign in to manage your music</div>
+
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-input" id="username" placeholder="Enter username" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-input"
+          id="password"
+          placeholder="Enter password"
+          onkeydown="if(event.key==='Enter') login()"
+        />
+      </div>
+
+      <button class="btn btn-primary" onclick="login()">Sign In</button>
+      <div class="error-msg" id="login-error"></div>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD ── -->
+  <div class="dashboard" id="dashboard">
+
+    <div class="header">
+      <div class="header-logo">
+        <div class="logo-dot"></div>
+        R.D
+        <span class="header-badge">Admin Panel</span>
+      </div>
+      <div class="header-right">
+        <span style="font-size:13px; color:var(--muted)" id="admin-name"></span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="main-content">
+
+      <!-- Upload Section -->
+      <div class="section-title">⬆️ Upload Song</div>
+      <div class="upload-card">
+
+        <div class="drop-area" id="drop-area" onclick="document.getElementById('song-file').click()">
+          <div class="drop-area-icon">🎵</div>
+          <div class="drop-area-text">
+            Click to select or <strong>drag & drop</strong> an audio file<br />
+            MP3, WAV, FLAC, OGG, AAC — max 50MB
+          </div>
+        </div>
+
+        <input
+          type="file"
+          id="song-file"
+          accept="audio/*"
+          style="display:none"
+          onchange="onFileSelect(this)"
+        />
+
+        <div class="selected-file" id="selected-file">
+          📄 <span id="selected-name"></span>
+        </div>
+
+        <div class="meta-grid">
+          <div class="form-group">
+            <label class="form-label">Title <span style="color:var(--muted)">(optional)</span></label>
+            <input type="text" class="form-input" id="song-title" placeholder="Auto from filename" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Artist <span style="color:var(--muted)">(optional)</span></label>
+            <input type="text" class="form-input" id="song-artist" placeholder="Auto from filename" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Album <span style="color:var(--muted)">(optional)</span></label>
+            <input type="text" class="form-input" id="song-album" placeholder="Unknown Album" />
+          </div>
+        </div>
+
+        <div class="upload-progress" id="upload-progress">
+          <div class="upload-progress-fill" id="upload-progress-fill"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="uploadSong()">⬆️ Upload Song</button>
+      </div>
+
+      <!-- Songs List -->
+      <div class="section-title">🎶 All Songs</div>
+      <div class="songs-card">
+        <div class="songs-header">
+          <span style="font-weight:600">Song Library</span>
+          <span class="songs-count" id="songs-count">Loading...</span>
+        </div>
+        <div id="songs-list"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
