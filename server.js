@@ -15,6 +15,11 @@ const PORT = process.env.PORT || 5000;
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
 
+const dbPath = path.join(__dirname, 'db.json');
+if (!fs.existsSync(dbPath)) {
+  fs.writeFileSync(dbPath, JSON.stringify({ songs: [] }));
+}
+
 // ── Middleware ──
 app.use(cors({
   origin: '*',
@@ -39,7 +44,7 @@ app.get('/', (req, res) => {
 });
 
 // ── Start ──
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`\n🎵 Melodia Backend running at http://localhost:${PORT}`);
   console.log(`🔐 Admin Panel at        http://localhost:${PORT}/admin`);
   console.log(`🎧 Songs API at          http://localhost:${PORT}/api/songs\n`);
